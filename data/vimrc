@@ -1,0 +1,124 @@
+set background=dark
+set nocompatible
+set ttyfast
+set visualbell t_vb=
+set showmatch
+set matchtime=2
+set laststatus=2
+set timeout timeoutlen=3000 ttimeoutlen=100
+set backspace=indent,eol,start
+set tabstop=2
+set shiftwidth=2
+set ruler
+set viminfo='20,<50,s10,h,%
+set incsearch
+set hlsearch
+set nobackup
+set wildmenu
+set wildignore=*.class,*.o,*.bak,*.swp
+set foldcolumn=1
+syntax on
+set modeline
+set modelines=10
+set wmh=0
+set statusline=%<%F%=\ [%1*%M%*%n%R%H%Y]\ \ %-25(%3l,%c%03V\ \ %P\ (%L)%)%12o'%03b''%03B'
+set switchbuf=useopen
+set titlestring=%<%F\ %M%=%l/%L\ -\ %p%% titlelen=70
+filetype plugin on
+set ofu=syntaxcomplete#Complete
+set mouse=c 
+set mousehide
+map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+set tabpagemax=25
+let c_no_bracket_error=1
+let c_no_curly_error=1
+let c_comment_strings=1
+let c_gnu=1
+set ignorecase
+set smartcase
+set pastetoggle=<F10>
+set tabpagemax=20
+set wildmode=list:longest,full
+nnoremap <C-e> <C-e><C-e><C-e>
+nnoremap <C-y> <C-y><C-y><C-y>
+set hidden
+set report=0
+set undolevels=1000
+set autoindent
+set smartindent
+set indentkeys=0{,0},!^F,o,O,e,=then,=do,=else,=elif,=esac,=fi,=fin,=fil,=done
+let c_space_errors=1
+let c_ansi_typedefs=1
+let c_ansi_constants=1
+if has("autocmd")
+  "for C-like programming, have automatic indentation:
+  autocmd FileType slang set cindent tabstop=4 shiftwidth=4 tw=78
+  "for actual C programming where comments have explicit end
+  "characters, if starting a new line in the middle of a comment automatically
+  "insert the comment leader characters:
+  "for a more _weighty_ comments use: comments=sl:/*,mb:**,elx:*/
+  autocmd FileType c,cpp set formatoptions+=ro dictionary=$HOME/.vim/c_dictionary
+                       \ tw=78 tabstop=4 shiftwidth=4 noexpandtab cindent
+endif " has("autocmd")
+"highlight Normal        ctermfg=black ctermbg=white
+"modus (insert,visual ...)
+highlight modeMsg	    cterm=bold ctermfg=white  ctermbg=blue
+"active statusLine
+highlight statusLine  	cterm=bold ctermfg=yellow ctermbg=red 
+"inactive statusLine
+highlight statusLineNC 	cterm=bold ctermfg=black  ctermbg=white
+"visual mode
+highlight visual		cterm=bold ctermfg=yellow ctermbg=red
+"cursor colors
+highlight cursor        cterm=bold 
+"vertical line on split screen
+highlight VertSplit     cterm=bold ctermfg=yellow ctermbg=yellow
+"searchpattern
+"highlight Search        cterm=bold ctermfg=yellow ctermbg=brown
+"folding
+" highlight Folded                   ctermfg=white ctermbg=yellow
+
+" highlight spell errors
+highlight SpellErrors ctermfg=Red cterm=underline term=reverse
+
+"java types, ...the solaris BG looks incredible yellow!
+"highlight our functions
+let java_highlight_functions=1
+
+" the default colours suck a little bit (but otherwise really nice features)
+if version >= 700
+   hi PmenuSel ctermfg=red ctermbg=cyan
+"  hi Pmenu ctermfg=yellow ctermbg=cyan
+"  hi PmenuThumb ctermfg=yellow 
+"  hi PmenuSbar ctermfg=magenta
+endif
+
+
+"F11 -> F12 == resize window
+map <F11>   <ESC>:resize -5 <CR>
+map <F12>   <ESC>:resize +5 <CR>
+
+"" Misc Keys
+
+"found on Bram Moolenaars page, nice thing! (with a little modification => :noh)
+map <F6> mX:sp ~/.signatures<CR>ggd/^-- /<CR>Gp:wq<CR>'XGA<CR><Esc>:noh<CR>p`X
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ABBREVIATIATIONS (very necessary ;-)
+
+iab _TIME        <C-R>=strftime("%X")<CR>
+iab _DATE        <C-R>=strftime("%a %b %d %T %Z %Y")<CR>
+iab _DATES       <C-R>=strftime("%b %d %Y")<CR>
+" ISO 8601 format
+iab _DATEN       <C-R>=strftime("%F")<CR>
+iab _DATEL       <C-R>=strftime("%a %b %d %Z %Y")<CR>
+iab _EPOCH       <C-R>=strftime("%s")<CR> 
+iab _DATEW       <C-R>=strftime("%a %Y-%m-%d %H:%M FIXME")<CR>
+
+"common c commands
+ab #d #define
+ab #i #include <.h><Esc>hhi<C-R>=DC()<CR>
+
+
+" vim:set ts=2 tw=80:
