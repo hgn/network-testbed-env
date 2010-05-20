@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # required debootstrap package
 #   aptitude install debootstrap
@@ -23,9 +23,6 @@ chroot raw-mount aptitude -y install tcpdump zsh vim-full debian-keyring
 
 cp data/vimrc raw-mount/root/.vimrc
 cp data/zshrc raw-mount/root/.zshrc
-
-chown pfeifer raw.img
-
 
 # now close every ressource 
 umount raw-mount
@@ -54,9 +51,9 @@ mount /dev/loop2 charlie-mount
 # write configuration
 
 # hostname
-echo "alpha"   > alpha-mount/etc/etc/hostname
-echo "bravo"   > bravo-mount/etc/etc/hostname
-echo "charlie" > charlie-mount/etc/etc/hostname
+echo "alpha"   > alpha-mount/etc/hostname
+echo "bravo"   > bravo-mount/etc/hostname
+echo "charlie" > charlie-mount/etc/hostname
 
 # ip setup
 (
@@ -64,14 +61,14 @@ cat <<EOF
 auto lo
 iface lo inet loopback
 
-auto eth0
-iface eth0 inet static
+auto eth1
+iface eth1 inet static
 	address 192.168.100.1
 	netmask 255.255.255.0
 	network 192.168.100.0
 	broadcast 192.168.100.255
 EOF
-) > alpha-mount/etc/network/interfaces/
+) > alpha-mount/etc/network/interfaces
 chroot alpha-mount /etc/init.d/networking restart
 
 
@@ -80,14 +77,14 @@ cat <<EOF
 auto lo
 iface lo inet loopback
 
-auto eth0
-iface eth0 inet static
+auto eth1
+iface eth1 inet static
 	address 192.168.100.2
 	netmask 255.255.255.0
 	network 192.168.100.0
 	broadcast 192.168.100.255
 EOF
-) > bravo-mount/etc/network/interfaces/
+) > bravo-mount/etc/network/interfaces
 chroot bravo-mount /etc/init.d/networking restart
 
 
@@ -96,14 +93,14 @@ cat <<EOF
 auto lo
 iface lo inet loopback
 
-auto eth0
-iface eth0 inet static
+auto eth1
+iface eth1 inet static
 	address 192.168.100.3
 	netmask 255.255.255.0
 	network 192.168.100.0
 	broadcast 192.168.100.255
 EOF
-) > charlie-mount/etc/network/interfaces/
+) > charlie-mount/etc/network/interfaces
 chroot charlie-mount /etc/init.d/networking restart
 
 

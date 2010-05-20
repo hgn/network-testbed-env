@@ -1,5 +1,13 @@
 #!/bin/bash
 
-losetup /dev/loop0 diskimage.img
-mount /dev/loop0 mounted
+mkdir alpha-mount
+losetup /dev/loop0 alpha.img
+mount /dev/loop0 alpha-mount
 
+mkdir bravo-mount
+losetup /dev/loop1 bravo.img
+mount /dev/loop1 bravo-mount
+
+mkdir charlie-mount
+losetup /dev/loop2 charlie.img
+mount /dev/loop2 charlie-mount
